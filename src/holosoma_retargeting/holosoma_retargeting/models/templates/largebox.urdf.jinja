@@ -16,7 +16,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="meshes/largebox_scaled_{{scale_x}}_{{scale_y}}_{{scale_z}}.obj" scale="1.0 1.0 1.0"/>
+        <mesh filename="meshes/{{ mesh_file_name }}.obj" scale="1.0 1.0 1.0"/>
       </geometry>
        <material name="mat">
         <color rgba="0.7 0.8 0.9 0.7"/>
@@ -25,7 +25,7 @@
     <collision name="largebox">
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="meshes/largebox_scaled_{{scale_x}}_{{scale_y}}_{{scale_z}}.obj" scale="1.0 1.0 1.0"/>
+        <mesh filename="meshes/{{ mesh_file_name }}.obj" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
   </link>

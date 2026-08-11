@@ -137,7 +137,7 @@ class MotionLoader:
         """Loads the motion from the csv file."""
         if self.motion_file.endswith(".npz"):
             data = np.load(self.motion_file)
-            self.input_fps = round(1 / data.get("fps", 1 / self.input_fps))
+            self.input_fps = round(data.get("fps", self.input_fps).item())
             self.input_dt = 1.0 / self.input_fps
             motion = torch.from_numpy(data["qpos"]).to(torch.float32)
         else:
@@ -518,7 +518,7 @@ def run_simulator(args_cli: DataConversionConfig):
                     motion_object_rot,
                 ],
                 dim=1,
-            )
+            ).numpy()
             robot_data.qvel[:] = torch.cat(
                 [
                     motion_base_lin_vel,
@@ -528,7 +528,7 @@ def run_simulator(args_cli: DataConversionConfig):
                     motion_object_ang_vel,
                 ],
                 dim=1,
-            )
+            ).numpy()
 
         else:
             # set root state

@@ -588,7 +588,9 @@ def create_scaled_object_mesh_and_urdf(
     Returns:
         str: Path to the created URDF file.
     """
-    object_file_name = f"largebox_scaled_{scale_factors[0]}_{scale_factors[1]}_{scale_factors[2]}"
+    scale_str = "_".join(f"{s:.4f}".replace(".", "p") for s in scale_factors)
+    object_file_name = f"largebox_scaled_{scale_str}"
+    
     scaled_vertices = scale_points_in_object_axes_frame(object_vertices, scale_factors, object_axes)
     mesh = trimesh.Trimesh(vertices=scaled_vertices, faces=object_faces)
 
@@ -603,7 +605,9 @@ def create_scaled_object_mesh_and_urdf(
     if not Path(urdf_file_name).exists():
         with open(object_urdf) as f:
             template = Template(f.read(), autoescape=True)
-        rendered_urdf = template.render(scale_x=scale_factors[0], scale_y=scale_factors[1], scale_z=scale_factors[2])
+        rendered_urdf = template.render(
+            scale_x=scale_factors[0], scale_y=scale_factors[1], scale_z=scale_factors[2], mesh_file_name=object_file_name
+        )
         with open(urdf_file_name, "w") as f:
             f.write(rendered_urdf)
 
@@ -618,7 +622,8 @@ def create_scaled_multi_boxes_urdf(
     """Read multi_boxes.urdf and generate scaled version."""
     if output_path is None:
         sx, sy, sz = new_scale
-        output_path = urdf_path.replace(".urdf", f"_scaled_{sx:.2f}_{sy:.2f}_{sz:.2f}.urdf")
+        output_path =urdf_path.replace(".urdf", f"_scaled_{sx:.2f}_{sy:.2f}_{sz:.2f}.urdf")
+        output_path = output_path.replace(".", "p")
 
     if Path(output_path).exists():
         return output_path
@@ -645,6 +650,7 @@ def create_scaled_multi_boxes_xml(
     if output_path is None:
         sx, sy, sz = new_scale
         output_path = xml_path.replace(".xml", f"_scaled_{sx:.2f}_{sy:.2f}_{sz:.2f}.xml")
+        output_path = output_path.replace(".", "p")
 
     with open(xml_path) as f:
         content = f.read()
@@ -668,6 +674,7 @@ def create_new_scene_xml_file(
     if output_path is None:
         sx, sy, sz = new_scale
         output_path = ori_scene_xml_path.replace(".xml", f"_scaled_{sx:.2f}_{sy:.2f}_{sz:.2f}.xml")
+        output_path = output_path.replace(".", "p")
 
     with open(ori_scene_xml_path) as f:
         content = f.read()

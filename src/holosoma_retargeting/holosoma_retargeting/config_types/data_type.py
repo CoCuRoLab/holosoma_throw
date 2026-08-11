@@ -223,8 +223,8 @@ JOINTS_MAPPINGS = {
         "R_Ankle": "right_ankle_intermediate_1_link",
         "L_Toe": "left_ankle_roll_sphere_5_link",
         "R_Toe": "right_ankle_roll_sphere_5_link",
-        "L_Wrist": "left_rubber_hand_link",
-        "R_Wrist": "right_rubber_hand_link",
+        "L_Wrist": "left_sphere_hand_link",
+        "R_Wrist": "right_sphere_hand_link",
     },
     ("smplh", "t1"): {
         "Pelvis": "Trunk",

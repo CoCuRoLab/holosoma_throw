@@ -54,7 +54,6 @@ if [[ ! -f $SENTINEL_FILE ]]; then
   # Install IsaacSim
   pip install --upgrade pip
   pip install -U torch==2.7.0 torchvision==0.22.0 --index-url https://download.pytorch.org/whl/cu128
-
   # Install dependencies from PyPI first
   pip install pyperclip
   # Then install isaacsim from NVIDIA index only
